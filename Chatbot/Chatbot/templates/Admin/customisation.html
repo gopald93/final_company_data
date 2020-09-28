@@ -1,0 +1,78 @@
+{% extends 'Admin/Admin_base.html' %} {% block title %}All Message activities{% endblock %} {% block stylesheet %} {% endblock stylesheet %} {% block content %}{% load crispy_forms_tags %}
+<div class="div" class="container-fluid">
+    <div class="row">
+        <div class="col-sm" style="float: left; margin-top: 30px; margin-bottom: 0px; height: 100%; width: 200px; background-color: white; padding-left: 27px; padding-right:27px; padding-top:0px; padding-bottom:0px; border-radius: 17px; border: 7px solid whitesmoke;">
+            <h4>
+                Chat Widget Customization
+            </h4>
+            <h5>Change the theme of the chat widget</h5>
+
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col-sm" style="float: left; margin-top: 10px; height: 100%; width: 200px; background-color: white; padding-left: 27px; padding-right:27px; padding-top:0px; padding-bottom:0px; border-radius: 17px; border-radius: 17px; border: 7px solid whitesmoke;">
+                        <h4>
+                            <i class="fas fa-pen" style="font-size: 24px; color: blue;"></i>
+                            Chat widget styling
+                        </h4>
+                        <h5>Customize how your chat widget looks like</h5>
+                        <div class="card" style="float: left; margin-top: 10px; height: 80%; width: 100%; background-color: white; padding-left: 27px; padding-right:27px; padding-top:0px; padding-bottom:0px; border-radius: 17px; border-radius: 17px; border: 7px solid whitesmoke;">
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">
+                                    <h5>Color for bots*</h5>
+                                <p style="padding-left: 27px; padding-right:27px;">{{ form.clr_cht_bt}}</p>
+                                </li>
+                                <li class="list-group-item">
+                                    <h5>Default icon for bots</h5>
+                                    {% for image in form.default_icon_for_bots%} 
+                                            {{image}}
+                                    {% endfor %}
+                                </li>
+                                <li class="list-group-item">
+                                    {{ form.upld_cstm_icon|as_crispy_field}}
+                                </li>
+                                <li class="list-group-item">
+                                    <h5>Widget position On the screen*</h5>
+                                    {% for position in form.wdgt_pos_on_the_scrn %} {{position}} {% endfor %}
+                                </li>
+                                <li class="list-group-item">
+                                  <h5>Show Modefin branding</h5>
+                                    {% for option in form.mfn_shwg_indct %} {{option}} {% endfor %}
+                                    <p>If this is enabled, then modefin branding will be displayed at the bottom of your chat widget</p>
+                                    <a href="https://modefin.com/" target="_blank">
+                                    <span class="glyphicon glyphicon-flash"></span>
+                                    by modefin
+
+                                    </a> 
+                                    
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm" style="float: left; margin-top: 32px; height: 100%; width: 200px; background-color: white; padding-left: 27px; padding-right:27px; padding-top:0px; padding-bottom:0px; border-radius: 17px; border-radius: 17px; border: 7px solid whitesmoke;">
+                        <h4>
+                            <i class="far fa-bell" style="font-size: 24px; color: blue;"></i>
+                            Change the notification sound
+                        </h4>
+                        <h5>Notification sounds for new messages if your users move to different tab</h5>
+                        <div class="card" style="float: left; margin-top: 10px; height: 80%; width: 100%; background-color: white; padding-left: 27px; padding-right:27px; padding-top:0px; padding-bottom:0px; border-radius: 17px; border-radius: 17px; border: 7px solid whitesmoke;">
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">
+                                    {{ form.ntn_snd_fr_bt|as_crispy_field }}
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col text-center">
+                        <button type="submit" class="btn btn-success">Save</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %} {% block javascript %} {% endblock javascript %}

@@ -1,0 +1,245 @@
+{% extends 'Admin/Admin_base.html' %} {% block title %}All Message activities{% endblock %} {% block stylesheet %} {% endblock stylesheet %} {% block content %}{% load crispy_forms_tags %}
+<div class="div" class="container-fluid">
+    <div class="row">
+        <div
+            class="col-sm"
+            style="
+                float: left;
+                margin-top: 30px;
+                margin-bottom: 0px;
+                height: 100%;
+                width: 200px;
+                background-color: white;
+                padding-left: 27px;
+                padding-right: 27px;
+                padding-top: 0px;
+                padding-bottom: 0px;
+                border-radius: 17px;
+                border: 7px solid whitesmoke;
+            "
+        >
+            <h4>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <i class="fa fa-volume-up" style="font-size: 15px; color: blue;"></i>
+                        These settings are only applicable for chat widget on web.
+                    </div>
+                </div>
+                Chat Configuration
+            </h4>
+            <h5>Chat Widget Settings</h5>
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="row">
+                    <div
+                        class="col-sm"
+                        style="
+                            float: left;
+                            margin-top: 10px;
+                            height: 100%;
+                            width: 200px;
+                            background-color: white;
+                            padding-left: 27px;
+                            padding-right: 27px;
+                            padding-top: 0px;
+                            padding-bottom: 0px;
+                            border-radius: 17px;
+                            border: 7px solid whitesmoke;
+                        "
+                    >
+                        <h4>
+                            <i class="fas fa-shield-alt" style="font-size: 24px; color: blue;"></i>
+                            Secure your chat widget
+                        </h4>
+                        <h5>User and messages history in chat widget</h5>
+                        <div
+                            class="card"
+                            style="
+                                float: left;
+                                margin-top: 10px;
+                                height: 80%;
+                                width: 100%;
+                                background-color: white;
+                                padding-left: 27px;
+                                padding-right: 27px;
+                                padding-top: 0px;
+                                padding-bottom: 0px;
+                                border-radius: 17px;
+                                border: 7px solid whitesmoke;
+                            "
+                        >
+                            <h4>Validity of chat widget messages history for anonymous users:</h4>
+                            <ul class="list-group list-group-flush">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <i class="fa fa-volume-up" style="font-size: 15px; color: blue;"></i>
+                                        For logged-in users, all chat widget history will be retained all the time
+                                    </div>
+                                </div>
+                                {% for remove_option in form.cht_hty_rml_opt %} {% if remove_option.choice_label == "Remove chat widget history after a set period of time" %}
+                                <li class="list-group-item">
+                                    <h4>{{remove_option}}</h4>
+                                    <h5>A new user session will be created and privious chat session with user info and messages will be cleared from the browser after a set period of time</h5>
+                                    {{ form.cht_hty_rml_dys|as_crispy_field}} {{ form.cht_hty_rml_hrs|as_crispy_field}} {{ form.cht_hty_rml_mnts|as_crispy_field}}
+                                </li>
+                                {% else %}
+                                <li class="list-group-item">
+                                    <h4>{{remove_option}}</h4>
+                                </li>
+                                {% endif %} {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div
+                        class="col-sm"
+                        style="
+                            float: left;
+                            margin-top: 10px;
+                            height: 100%;
+                            width: 200px;
+                            background-color: white;
+                            padding-left: 27px;
+                            padding-right: 27px;
+                            padding-top: 0px;
+                            padding-bottom: 0px;
+                            border-radius: 17px;
+                            border: 7px solid whitesmoke;
+                        "
+                    >
+                        <h4>
+                            <i class="fas fa-clock" style="font-size: 24px; color: blue;"></i>
+                            Time-delay setting in bot replies
+                        </h4>
+                        <h5>Make your bot seem more natural by delaying the bot replies</h5>
+                        <div
+                            class="card"
+                            style="
+                                float: left;
+                                margin-top: 10px;
+                                height: 80%;
+                                width: 100%;
+                                background-color: white;
+                                padding-left: 27px;
+                                padding-right: 27px;
+                                padding-top: 0px;
+                                padding-bottom: 0px;
+                                border-radius: 17px;
+                                border: 7px solid whitesmoke;
+                            "
+                        >
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">
+                                    <h5>{{ form.bt_rpls_dly_prd|as_crispy_field}}</h5>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div
+                        class="col-sm"
+                        style="
+                            float: left;
+                            margin-top: 10px;
+                            height: 100%;
+                            width: 200px;
+                            background-color: white;
+                            padding-left: 27px;
+                            padding-right: 27px;
+                            padding-top: 0px;
+                            padding-bottom: 0px;
+                            border-radius: 17px;
+                            border: 7px solid whitesmoke;
+                        "
+                    >
+                        <h4>
+                            <i class="far fa-comment-dots" style="font-size: 24px; color: blue;"></i>
+                            Single thread conversation in chat widget
+                        </h4>
+                        <h5>Restrict your users from creating multiple conversation threads</h5>
+                        <div
+                            class="card"
+                            style="
+                                float: left;
+                                margin-top: 10px;
+                                height: 80%;
+                                width: 100%;
+                                background-color: white;
+                                padding-left: 27px;
+                                padding-right: 27px;
+                                padding-top: 0px;
+                                padding-bottom: 0px;
+                                border-radius: 17px;
+                                border: 7px solid whitesmoke;
+                            "
+                        >
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">
+                                    <h5>Allow a single conversation thread only</h5>
+                                    {% for thread in form.no_of_thrd_alwd %} {{thread}} {% endfor %}
+                                    <h5>Enabling this setting would restrict your users from creating multiple conversation threads in the chat widget. Only one single conversation thread would be visible in the chat widget.</h5>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div
+                        class="col-sm"
+                        style="
+                            float: left;
+                            margin-top: 10px;
+                            height: 100%;
+                            width: 200px;
+                            background-color: white;
+                            padding-left: 27px;
+                            padding-right: 27px;
+                            padding-top: 0px;
+                            padding-bottom: 0px;
+                            border-radius: 17px;
+                            border: 7px solid whitesmoke;
+                        "
+                    >
+                        <h4>
+                            <i class="fas fa-comment-slash" style="font-size: 24px; color: blue;"></i>
+                            Disable your chat widget
+                        </h4>
+                        <h5>Hide the chat widget temporarily without removing the script from your website</h5>
+                        <div
+                            class="card"
+                            style="
+                                float: left;
+                                margin-top: 10px;
+                                height: 80%;
+                                width: 100%;
+                                background-color: white;
+                                padding-left: 27px;
+                                padding-right: 27px;
+                                padding-top: 0px;
+                                padding-bottom: 0px;
+                                border-radius: 17px;
+                                border: 7px solid whitesmoke;
+                            "
+                        >
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">
+                                    <h5>Disable the chat widget from the websit</h5>
+                                    {% for disable in form.cht_wdgt_dply_inditr %} {{disable}} {% endfor %}
+                                    <h5>Note: This will stop the chat widget from appearing in all the places you have integrated it.</h5>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col text-center">
+                        <button type="submit" class="btn btn-success">Save</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %} {% block javascript %} {% endblock javascript %}

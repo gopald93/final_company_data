@@ -1,0 +1,16 @@
+{% extends 'Admin/Admin_base.html' %} {% load static %} {% block title %}Bot integrations activities{% endblock %} {% block stylesheet %} {% endblock stylesheet %} {% block content %}
+<div class="row">
+    <div class="col-sm" style="float: left; margin-top: 32px; height:600px; width:100%; background-color: white; padding: 10px; border-radius: 7px; border: 7px solid whitesmoke;text-align: center;">
+<div class="container">
+<div class="row">
+    <div class="col-sm" style="float: left; margin-top: 32px; height:250px; width:100%; background-color: white; padding: 10px; border-radius: 7px; border: 7px solid whitesmoke;text-align: center;">
+            <img src="{% static 'assets/images/google_dialogue_flow_image.jpg' %}" alt="homepage" class="dark-logo" style="height: 100px; width: 70px;" /><br />
+            <h5>Dialogue Flow</h5>
+            <p>Dialogue Flow is Google-owned chatbot builder</p>
+            <a href="{% url 'bots/bot_integrations/google_dialog_flow_integration' %}" class="btn btn-info" role="button">Bot Integrations</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+{% endblock %} {% block javascript %} {% endblock javascript %}

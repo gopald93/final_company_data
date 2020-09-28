@@ -1,0 +1,97 @@
+{% extends 'Admin/Admin_base.html' %} {% block title %}welcome messages{% endblock %} {% block stylesheet %} {% endblock stylesheet %} {% block content %}{% load crispy_forms_tags %}
+<div class="div" class="container-fluid">
+    <div class="row">
+        <div
+            class="col-sm"
+            style="
+                float: left;
+                margin-top: 30px;
+                margin-bottom: 0px;
+                height: 100%;
+                width: 200px;
+                background-color: white;
+                padding-left: 27px;
+                padding-right: 27px;
+                padding-top: 0px;
+                padding-bottom: 0px;
+                border-radius: 17px;
+                border: 7px solid whitesmoke;
+            "
+        >
+            <h4>Welcome Message</h4>
+            <h5>The welcome message will greet your customers when they initiate a new conversation</h5>
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="row">
+                    <div
+                        class="col-sm"
+                        style="
+                            float: left;
+                            margin-top: 10px;
+                            height: 100%;
+                            width: 200px;
+                            background-color: white;
+                            padding-left: 27px;
+                            padding-right: 27px;
+                            padding-top: 0px;
+                            padding-bottom: 0px;
+                            border-radius: 17px;
+                            border-radius: 17px;
+                            border: 7px solid whitesmoke;
+                        "
+                    >
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">
+                                <h4>Show welcome message to users</h4>
+                                {% for option in form.collect_email_id_from_anonymous_users%} {{option}} {% endfor %}
+                            </li>
+                            <li class="list-group-item">
+                                <h4>Collect email ID from anonymous users</h4>
+                                {% for option in form.show_welcome_message_to_users %} {{option}} {% endfor %}
+                            </li>
+                            <li class="list-group-item">
+                                <h4>Add a language</h4>
+                                {% for value, text in form.default_language.field.choices %}
+                                <input id="id_default_language_{{ forloop.counter0 }}" name="{{ form.default_language.name }}" type="checkbox" value="{{ value }}" {% if value in checked_my_field %} checked="checked" {% endif %} />
+                                <button type="button" class="btn btn-primary">{{ text }}</button>
+                                {% endfor %}
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="row">
+                    <div
+                        class="col-sm"
+                        style="
+                            float: left;
+                            margin-top: 32px;
+                            height: 100%;
+                            width: 200px;
+                            background-color: white;
+                            padding-left: 27px;
+                            padding-right: 27px;
+                            padding-top: 0px;
+                            padding-bottom: 0px;
+                            border-radius: 17px;
+                            border-radius: 17px;
+                            border: 7px solid whitesmoke;
+                        "
+                    >
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">
+                                <h4>Default Welcome Message</h4>
+                                {{ form.default_welcome_message}}
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col text-center">
+                        <button type="submit" class="btn btn-success">Save</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %} {% block javascript %} {% endblock javascript %}

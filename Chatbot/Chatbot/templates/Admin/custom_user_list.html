@@ -1,0 +1,67 @@
+{% extends 'Admin/Admin_base.html' %} {% block title %}User Details{% endblock %} {% block stylesheet %} {% endblock stylesheet %} {% load crispy_forms_tags %}{% block content %}
+   <div class="div" class="container-fluid">
+    <div class="row">
+    <div class="col-sm" style="float: left; margin-top: 30px; margin-bottom: 0px; height: 100%; width: 200px; background-color: white; padding-left: 27px; padding-right:27px; padding-top:0px; padding-bottom:0px; border-radius: 17px; border: 7px solid whitesmoke;">
+       
+        <div class="row">
+            <div class="col-sm-4"style="float: left;margin-top: 30px;margin-bottom: 0px;height: 100%;width: 200px;background-color: white;padding-left: 0px;padding-right: 0px;padding-top: 0px;padding-bottom: 0px;border-radius: 17px;border: 7px solid whitesmoke">
+                <div class="card">
+                <div class="card-header">
+                      Featured
+                </div>
+                  <div class="card-body">
+                    <h5 class="card-title">Panel title</h5>
+                    <p class="card-text">Some quick example text to build on the panel title and make up the bulk of the panel's content.</p>
+                    <a class="card-link">Card link</a>
+                    <a class="card-link">Another link</a>
+                  </div>
+                </div>
+            </div>
+            <div class="col-sm-8"style="float: left;margin-top: 30px;margin-bottom: 0px;height: 100%;width: 200px;background-color: white;padding-left: 27px;padding-right: 27px;padding-top: 0px;padding-bottom: 0px;border-radius: 17px;border: 7px solid whitesmoke">
+                <p>
+                    <div class="float-left">
+                        <h3>List of {{title}}</h3>
+                    </div>
+                    <a class="btn btn-success float-right" href="{%  url 'custom_user_add' %}">
+                        Add Teammates
+                    </a>
+                </p>
+                <div class="table-responsive-sm">
+                    {% if users %}
+                        <table class="table table-bordered">
+                        <thead class="thead-light">
+                            <tr>
+                                <th class="text-center">Name</th>    
+                                <th class="text-center">User Name</th>
+                                <th class="text-center">Email</th>
+                                <th class="text-center">Status</th>
+                                <th class="text-center">BotId</th>
+                                <th class="text-center">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for user in users %}
+                            <tr class="text-center">
+                            <td>{{user.first_name}} {{user.last_name}}</td>
+                            <td>{{user.username}}</td>
+                            <td>{{user.email}}</td>
+                            <td>{{user.custom_user_model.user_status}}</td>
+                            <td>{{user.custom_user_model.bot_id}}</td>
+                            <td class="text-center">
+                            <a class="btn btn-primary" href="{%  url 'custom_user_edit' user.id %}">Edit</a>
+                            <a class="btn btn-danger" href="{%  url 'custom_user_delete' user.id %}">Delete</a>
+                            </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                {% else %}
+                <p>There is no user details available.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+{% endblock %} {% block javascript %} {% endblock javascript %}

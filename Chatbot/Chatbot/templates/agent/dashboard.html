@@ -1,0 +1,150 @@
+{% extends 'agent/agent_base.html' %}
+{% block title %}All Message activities{% endblock %}
+{% block stylesheet %}
+{% endblock stylesheet %}
+{% block content %}
+    <div style=" margin-top: 32px; height: 650; background-color: white; padding: 27px; border-radius: 17px; border: 7px solid whitesmoke;">
+          <h2><b>Count of total messages with respect to date-time</b></h2>
+          <br>
+          <form  method="post" action="/agent/dashboard/">
+            {% csrf_token %}
+            <div class="row">
+               <div class='col-md-3'>
+                  <div class="form-group">
+                     <label class="control-label">From:</label>
+                     <div class='input-group date' id='datetimepicker1'>
+                        <input type='text' name="from_date" class="form-control" placeholder={{from_date}} />
+                        <span class="input-group-addon" style="background-color: #3c7ab6; color: white;">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                        </span>
+                     </div>
+                  </div>
+               </div>
+               <div class='col-md-3'>
+                  <div class="form-group">
+                     <label class="control-label">To:</label>
+                     <div class='input-group date' id='datetimepicker2'>
+                        <input type='text' name='to_date' class="form-control" placeholder={{to_date}} />
+                        <span class="input-group-addon" style="background-color: #3c7ab6; color: white;">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                        </span>
+                     </div>
+                  </div>
+               </div>
+               <div class='col-md-2' style="margin-top: 25px;">
+                 <button class="btn btn-primary" type="submit" name="analyze">Analyze</button>
+               </div>
+             </div>
+          </form>
+        <div id="total_graph_wrt_time" style="width: inherit; height: 380; "></div>
+    </div>
+
+    <div class="">
+      <div class="row">
+        <div class="col-sm" style="float: left; margin-top: 32px; height: 423px; width: 486px; background-color: white; padding: 27px; border-radius: 17px; border: 7px solid whitesmoke;">
+          <h2><b>Total false-true ratio</b></h2>
+          <div id="piechart" style="width: 440px; height: 300px;"></div>
+        </div>
+
+        <div class="col-sm" style=" float: left; margin-left: 10px; margin-top: 32px; height: 423px; width: 700px; background-color: white; padding: 27px; border-radius: 17px; border: 7px solid whitesmoke;">
+          <h2><b>Total count of messages</b></h2>
+          <div id="bar_chart_id" style="width: 600px; height: 300px;"></div>
+        </div>
+      </div>
+    </div>
+    
+{% endblock %}
+
+{% block javascript %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/momentjs/2.14.1/moment.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/css/bootstrap-datetimepicker.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+    google.charts.load('current', {'packages':['corechart','bar']});
+
+    google.charts.setOnLoadCallback(total_graph_wrt_time);
+    google.charts.setOnLoadCallback(pie_chart);
+    google.charts.setOnLoadCallback(bar_chart);
+
+
+
+// TOTAL COUNT GRAPHS FUNCTION
+     function total_graph_wrt_time() {
+      var data = google.visualization.arrayToDataTable({{total_count_list_json|safe}});
+
+      var options = {
+        title: '',
+        hAxis: {title: 'DATE-TIME'},
+        vAxis: {title: 'No of Messages'},
+        curveType: 'function',
+        lineWidth: 3,
+        series: {
+                    0: { color: '#0000FF' },
+                    1: { color: '#34d613' },
+                    2: { color: '#ff0000' }
+                },
+
+      };
+      var chart = new google.visualization.AreaChart(document.getElementById('total_graph_wrt_time'));
+      chart.draw(data, options);
+    }
+
+  // PIE CHART FUNCTION
+    function pie_chart() {
+
+        var data = google.visualization.arrayToDataTable([
+          ['Message_Type', 'Message_Count'],
+          ['TRUE MESSAGES',     {{total_true_messages_json}}],
+          ['FAILED MESSAGGES',   {{total_failed_messages_json}}],
+
+        ]);
+
+        var options = {
+          title: '',
+          is3D: true
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+
+        chart.draw(data, options);
+      }
+// BAR CHART FOR TOTAL FAILURE AND SUCCESS AND TOTAL COUNT
+      function bar_chart() {
+
+      var data = google.visualization.arrayToDataTable([
+        ['Message_Type', 'Total_Count',{ role: 'style' }],
+        ['TOTAL MESSAGES',{{total_messages_json}}, 'blue'],
+        ['TRUE MESSAGES', {{total_true_messages_json}}, '#76EE00'],
+        ['FAILED MESSAGES', {{total_failed_messages_json}}, 'red']
+      ]);
+
+      var options = {
+        title: '',
+        chartArea: {width: '50%'},
+        hAxis: {
+          title: '',
+          minValue: 0
+        },
+        vAxis: {
+          title: ''
+        }
+      };
+
+      var chart = new google.visualization.BarChart(document.getElementById('bar_chart_id'));
+
+      chart.draw(data, options);
+    }
+</script>
+<script>
+    $(function () {
+      $('#datetimepicker1').datetimepicker();
+   });
+   $(function () {
+     $('#datetimepicker2').datetimepicker();
+  });
+</script>
+{% endblock javascript %}

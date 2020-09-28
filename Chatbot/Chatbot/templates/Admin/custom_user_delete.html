@@ -1,0 +1,19 @@
+{% extends 'Admin/Admin_base.html' %} {% load static %} {% block title %}Bot integrations activities{% endblock %} {% block stylesheet %} {% endblock stylesheet %} {% block content %}
+<div class="container">
+<div class="row">
+    <div class="col-sm" style="float: left; margin-top: 32px; height:150px; width:0%; background-color: white; padding-left:0px; padding-right:0px; padding-top:0px; padding-bottom:0px; border-radius: 7px; border: 7px solid whitesmoke;text-align: center;">
+            <h2>{{user.first_name}} &nbsp; {{user.last_name}}</h2>
+            <form method="post">
+            {% csrf_token %}
+            <p>Are you sure to delete this Teammates?</p>
+                <div class="row">
+                <div class="col text-center">
+                    <button type="submit" class="btn btn-success">Delete</button>
+                </div>
+            </div>
+            </form>
+            </div>
+            </div>
+            </div>
+            
+{% endblock %} {% block javascript %} {% endblock javascript %}

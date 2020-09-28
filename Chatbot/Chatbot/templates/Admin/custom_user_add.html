@@ -1,0 +1,18 @@
+{% extends 'Admin/Admin_base.html' %} {% block title %}Use Creation{% endblock %} {% block stylesheet %} {% endblock stylesheet %} {% load crispy_forms_tags %}{% block content %}
+    <div class="card" style="float: left; margin-top: 32px; height: 70%; width: 100%; background-color: white; padding-left:150px; padding-right:150px; padding-top:0px; padding-bottom:0px; border-radius: 17px; border-radius: 17px; border: 7px solid whitesmoke;">
+    	<div class="row justify-content-center">
+                <h1>{{Activites}}</h1>
+        </div>
+       <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <table class="table table-bordered">
+        {{ form.as_table }}
+        </table>
+        <div class="row">
+            <div class="col text-center">
+                <button type="submit" class="btn btn-success">Save</button>
+            </div>
+        </div>
+        </form>
+    </div>    
+{% endblock %}{% block javascript %}{% endblock javascript %}
